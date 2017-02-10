@@ -1,0 +1,27 @@
+        properties list
+
+        SSL
+
+        («mail.smtp.host», «smtp.gmail.com»);
+        («mail.smtp.socketFactory.port», «465»);
+        («mail.smtp.socketFactory.class», «javax.net.ssl.SSLSocketFactory»);
+        («mail.smtp.auth», «true»)
+        («mail.smtp.port», «465»)
+
+        TLS
+
+        («mail.smtp.auth», «true»)
+        («mail.smtp.starttls.enable», «true»)
+        («mail.smtp.host», «smtp.gmail.com»)
+        («mail.smtp.port», «587»)
+
+
+        //Send from gmail.com saample
+
+        SMTPProperties prop = new SMTPProperties("smtp.gmail.com", "true", "465", "javax.net.ssl.SSLSocketFactory");
+        MessageData message = new MessageData("[sender e-mail]", "[password]", "[receiver e-mail]", "Subject", "TEST");
+        MailSender sm = new MailSender();
+        sm.sendNotification(prop, message);
+
+
+
