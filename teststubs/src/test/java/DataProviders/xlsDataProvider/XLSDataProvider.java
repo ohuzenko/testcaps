@@ -1,7 +1,6 @@
 package DataProviders.xlsDataProvider;
 
 import DataProviders.dataProvidersBase.DataCaster;
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.testng.annotations.DataProvider;
@@ -10,13 +9,11 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.*;
 
-/**
- * Created by sunny_IT on 2/1/2017.
- */
+
 public class XLSDataProvider extends DataCaster {
 
     @DataProvider
-    public static Object[][] XLSDataProvider(Method m) throws IOException, InvalidArgumentException {
+    public static Object[][] XLSDataProvider(Method m) throws Exception {
 
         Iterator<Row> rows = getIteratorFromAnnotation(m);
 
@@ -91,7 +88,7 @@ public class XLSDataProvider extends DataCaster {
     }
 
 
-    private static Object[][] getParametersByNames(Method m, Iterator<Row> rows) throws InvalidArgumentException {
+    private static Object[][] getParametersByNames(Method m, Iterator<Row> rows) throws Exception {
 
         List<Object[]> result = new ArrayList<Object[]>();
 
@@ -133,7 +130,7 @@ public class XLSDataProvider extends DataCaster {
                             index++;
 
                         if (index >= parametersInFunction.length)
-                            throw new InvalidArgumentException(new String[]{"Cannot find parameter matcher. Verify input data."});
+                            throw new RuntimeException("Cannot find parameter matcher. Verify input data.");
 
 
                         parameters[index] = castDataType(m.getParameterTypes()[index], cell.toString());
