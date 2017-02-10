@@ -13,9 +13,7 @@ public class MailSender {
 
             Transport.send(messageData.getMessage(getSession(props,
                                                              messageData.getUsername(),
-                                                             messageData.getPassword())
-                                                  )
-                          );
+                                                             messageData.getPassword())));
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);
