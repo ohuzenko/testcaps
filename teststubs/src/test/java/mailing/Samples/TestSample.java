@@ -40,22 +40,38 @@ public class TestSample {
 
         ReportOnError report = m.getAnnotation(ReportOnError.class);
 
-        String text =  m.toString() +   Arrays.toString(m.getParameters()) +": " + testResult.getThrowable().toString();
+        String text =  m.toString() + Arrays.toString(m.getParameters()) + ": " + testResult.getThrowable().toString();
 
         if(testResult.getThrowable().toString().contains("AssertionError")){
+
+
             if(report.testAnalystMail().equals("")){
                 return;
             }else{
 
-                message = new MessageData("[sender-mail]", "[sender-password]", report.testAnalystMail(), "ASSERTION FAILED NOTIFICATION: "+ m.getName() , text);
+                message = new MessageData("[sender-mail]",
+                        "[sender-password]",
+                        report.testAnalystMail(),
+                        "ASSERTION FAILED NOTIFICATION: "+ m.getName(),
+                        text);
             }
 
         }else{
 
-            message = new MessageData("[sender-mail]", "[sender-password]", report.testDeveloperMail(), "TEST FAILED NOTIFICATION: "+ m.getName() , text);
+            message = new MessageData("[sender-mail]",
+                    "[sender-password]",
+                    report.testDeveloperMail(),
+                    "TEST FAILED NOTIFICATION: "+ m.getName(),
+                    text);
         }
 
-        SMTPProperties prop = new SMTPProperties("smtp.gmail.com", "true", "465", "javax.net.ssl.SSLSocketFactory");
+        SMTPProperties prop = new SMTPProperties()
+                .withHost("smtp.gmail.com")
+                .withAuth("true")
+                .withPort("465")
+                .withSocketFactory("javax.net.ssl.SSLSocketFactory")
+                .withSocketFactoryPort("465");
+
         MailSender sm = new MailSender();
         sm.sendNotification(prop, message);
 
