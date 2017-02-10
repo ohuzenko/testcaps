@@ -27,4 +27,11 @@ public class DataCaster {
 
         return value;
     }
+    public  static Object castDataType(Class<?> paramType, Object value) {
+
+        String tmp = value.toString();
+
+        return castDataType(paramType, tmp);
+    }
+
 }
