@@ -10,5 +10,4 @@ import java.lang.annotation.Target;
 public @interface ReportOnError {
         String testDeveloperMail() default "";
         String testAnalystMail()   default "";
-        String superviserMail()    default "";
 }
